@@ -1,35 +1,32 @@
 package hiber.model;
+
 import javax.persistence.*;
+import java.util.Objects;
+
 @Entity
 @Table(name = "cars")
 public class Car {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Column (name = "model")
+    @Column(name = "model")
     private String model;
 
-    @Column (name = "series")
+    @Column(name = "series")
     private int series;
-    @OneToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 
-    public Car(){
-
+    public Car() {
     }
-    public Car(String model, int series){
+
+    public Car(String model, int series) {
         this.model = model;
         this.series = series;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getModel() {
@@ -48,12 +45,19 @@ public class Car {
         this.series = series;
     }
 
-    public User getUser() {
-        return user;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+        return id == car.id && series == car.series && Objects.equals(model, car.model);
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, model, series);
     }
 
     @Override
@@ -62,7 +66,6 @@ public class Car {
                 "id=" + id +
                 ", model='" + model + '\'' +
                 ", series=" + series +
-                ", user=" + user +
                 '}';
     }
 }
