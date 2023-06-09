@@ -9,5 +9,5 @@ public interface UserDao {
 
     List<User> getListUsers();
 
-    User getUser(String model, int series);
+    User getListUsers(String model, int series);
 }

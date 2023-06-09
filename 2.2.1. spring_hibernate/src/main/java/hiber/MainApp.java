@@ -5,6 +5,7 @@ import hiber.model.Car;
 import hiber.model.User;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class MainApp {
                 new AnnotationConfigApplicationContext(AppConfig.class);
 
         UserService userService = context.getBean(UserService.class);
+
 
         userService.add(new User(
                 "User1",
@@ -40,21 +42,21 @@ public class MainApp {
                 new Car("Vaz", 1666)));
 
         List<User> users = userService.getListUsers();
-        
+
         for (User user : users) {
             System.out.println(
                     "Id = " + user.getId() +
-                    "\nFirst Name = " + user.getFirstName() +
-                    "\nLast Name = " + user.getLastName() +
-                    "\nEmail = " + user.getEmail() +
-                    "\nCar = " + user.getUserCar().getModel() +
-                    "\nCar series = " + user.getUserCar().getSeries());
+                            "\nFirst Name = " + user.getFirstName() +
+                            "\nLast Name = " + user.getLastName() +
+                            "\nEmail = " + user.getEmail() +
+                            "\nCar = " + user.getUserCar().getModel() +
+                            "\nCar series = " + user.getUserCar().getSeries());
 
         }
 
         System.out.println("Get user by car model and series.\n");
 
-        User user = userService.getUser("Vaz", 1666);
+        User user = userService.getUserByCar("Vaz", 1666);
 
         System.out.println();
         System.out.println(user);
